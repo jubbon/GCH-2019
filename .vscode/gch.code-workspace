@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"path": ".."
+		}
+	],
+	"settings": {
+		"git.ignoreLimitWarning": true,
+		"python.pythonPath": "${workspaceFolder}/devenv/python/.user/pyenv/bin/python"
+	}
+}

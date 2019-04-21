@@ -1,0 +1,65 @@
+
+version: '3'
+
+services:
+  gis:
+    image: gch/gis:develop
+    build: ../images/gis
+    command: python app
+    environment:
+      REGION: "52.00"
+      REGION_NAME: "526001001"
+    volumes:
+     - ../../data:/data
+
+  geocoder:
+    image: gch/geocoder:develop
+    build: ../images/geocoder
+    command: python app
+    volumes:
+     - ../../data:/data
+
+  osmosis:
+    image: yagajs/osmosis
+    volumes:
+      - ../../data/osm:/osm-data
+
+  osrm.vehicle:
+    image: osrm/osrm-backend
+    command: osrm-routed --algorithm mld /data/vehicle/nn-latest.osrm
+    volumes:
+      - ../../data/osm/osrm:/data
+    ports:
+     - "5001:5000"
+
+  osrm.human:
+    image: osrm/osrm-backend
+    command: osrm-routed --algorithm mld /data/human/nn-latest.osrm
+    volumes:
+      - ../../data/osm/osrm:/data
+    ports:
+     - "5002:5000"
+
+  simulator:
+    image: gch/simulator:develop
+    build: ../images/simulator
+    command: python app
+    environment:
+      TZ: Europe/Moscow
+    volumes:
+     - ../../data:/data
+    depends_on:
+      - osrm.vehicle
+      - osrm.human
+
+  geoprocessing:
+    image: gch/geoprocessing:develop
+    build: ../images/geoprocessing
+    command: python app geoprocessing
+    environment:
+      TZ: Europe/Moscow
+    volumes:
+     - ../../data:/data
+    depends_on:
+      - osrm.vehicle
+      - osrm.human

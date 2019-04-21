@@ -1,0 +1,23 @@
+{
+  "autorun": false,
+  "terminals": [
+    {
+      "name": "Development",
+      "description": "Сборка Docker-образов",
+      "focus": true,
+      "command": " source ./devenv/terminals/develop/init"
+    },
+    {
+      "name": "Симулятор",
+      "description": "Симуляция процесса сборки мусора",
+      "focus": true,
+      "command": " source ./devenv/terminals/simulator/init"
+    },
+    {
+      "name": "Геопроцессинг",
+      "description": "Геопроцессинг данных",
+      "focus": true,
+      "command": " source ./devenv/terminals/geoprocessing/init"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+#!/bin/bash
+
+basedir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+export PATH=/opt/anaconda/anaconda-python-3.7/bin:$PATH
+
+if [ -e "$basedir/pyenv/version" ]; then
+    python_version=$(<$basedir/pyenv/version)
+fi
+# Create Python environment based on Anaconda
+conda create --prefix $basedir/.user/pyenv --yes --copy --no-default-packages python==$python_version
+source activate $basedir/.user/pyenv
+if [ -e "$basedir/pyenv/conda.txt" ]; then
+    conda install --yes --copy --file=$basedir/pyenv/conda.txt
+fi
+conda update --yes --copy --all
+pip install --upgrade pip
+if [ -e "$basedir/pyenv/requirements.txt" ]; then
+    pip install -r $basedir/pyenv/requirements.txt
+fi

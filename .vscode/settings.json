@@ -1,0 +1,11 @@
+{
+    "python.pythonPath": "./devenv/python/.user/pyenv/bin/python",
+    "python.linting.enabled": true,
+    "python.linting.flake8Enabled": true,
+    "python.linting.flake8Args": [
+        "--max-line-length=120",
+    ],
+    "python.linting.pylintEnabled": false,
+    "python.formatting.provider": "yapf",
+    "git.ignoreLimitWarning": true,
+}
